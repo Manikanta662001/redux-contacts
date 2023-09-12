@@ -6,6 +6,7 @@ import AddEditContact from './AddEditContact'
 const Contacts = ({contacts,getAllContacts}) => {
   useEffect(()=>{
     getAllContacts()
+    // eslint-disable-next-line
   },[])
    
   return (
