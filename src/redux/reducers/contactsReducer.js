@@ -1,8 +1,9 @@
-import { ADD_CONTACT, GET_ALL_CONTACTS } from "../actions/actionTypes"
+import { ADD_CONTACT, DELETE_CONTACT, EDIT_CONTACT, GET_ALL_CONTACTS, GET_SINGLE_CONTACT } from "../actions/actionTypes"
 
 
 const initialState = {
-    contacts:[{name:'Mani',phonenumber:'2423535436',email:'mani@gmail.com'}]
+    contacts:[{name:'Mani',phonenumber:'2423535436',email:'mani@gmail.com'}],
+    contact : {}
 }
 const contactsReducer = (state=initialState,action) => {
     switch(action.type){
@@ -14,6 +15,16 @@ const contactsReducer = (state=initialState,action) => {
             console.log(contacts,"CON")
             contacts.push(action.payload)
             return {...state,contacts:contacts}
+        case GET_SINGLE_CONTACT:
+            return {...state,contact:{...state.contacts[action.index],id:action.index}}
+        case EDIT_CONTACT:
+            let oldst = [...state.contacts]
+            oldst[action.id] = action.payload
+            return {...state,contacts:oldst}
+        case DELETE_CONTACT:
+            let allcontacts = [...state.contacts]
+            allcontacts.splice(action.index,1)
+            return {...state,contacts:allcontacts}
         default :
             return state
     }
